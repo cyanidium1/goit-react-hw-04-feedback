@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+}
+
+.item {
+  background-color: rgb(41, 108, 255);
+  color: white;
+  border-radius: 50%;
+  border: none;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
