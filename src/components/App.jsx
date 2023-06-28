@@ -1,46 +1,61 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import Feedback from './Feedback/Feedback';
 import Stats from './Stats/Stats';
 
-export class App extends Component {
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+const App = () => {
+  // const [value, setValue] = useState({
+  //   good: 0,
+  //   neutral: 0,
+  //   bad: 0,
+  // });
+  const [good, setgood] = useState(0);
+  const [neutral, setneutral] = useState(0);
+  const [bad, setbad] = useState(0);
+
+  const value = {
+    good: good,
+    neutral: neutral,
+    bad: bad,
   };
 
-  increase = option => {
-    this.setState({
-      [option]: this.state[option] + 1,
-    });
+  const increase = option => {
+    switch (option) {
+      case 'good':
+        setgood([option] + 1);
+        break;
+      case 'neutral':
+        setneutral([option] + 1);
+        break;
+      case 'bad':
+        setbad([option] + 1);
+    }
   };
 
-  countTotal = () => {
-    return Object.values(this.state).reduce(
-      (partialSum, a) => partialSum + a,
-      0
-    );
+  const countTotal = () => {
+    return good + neutral + bad;
   };
-  countPercentage = () => {
-    return Math.round(
-      (this.state.good / (this.state.good + this.state.bad)) * 100
-    );
+  const countPercentage = () => {
+    return Math.round((good / (good + bad)) * 100);
   };
 
-  render() {
-    const total = this.countTotal();
-    const percentage = this.countPercentage();
-    const options = Object.keys(this.state);
-    return (
-      <>
-        <h2>Stats</h2>
-        <Feedback increase={this.increase} options={options} />
-        {!this.state.good && !this.state.neutral && !this.state.bad ? (
-          <p>No stats</p>
-        ) : (
-          <Stats params={this.state} total={total} percentage={percentage} />
-        )}
-      </>
-    );
-  }
-}
+  const total = countTotal();
+  const percentage = countPercentage();
+  const options = ['good', 'neutral', 'bad'];
+  return (
+    <>
+      <h2>Stats</h2>
+      <Feedback increase={increase} options={options} />
+      {!good && !neutral && !bad ? (
+        <p>No stats</p>
+      ) : (
+        <Stats
+          params={[good, neutral, bad]}
+          total={total}
+          percentage={percentage}
+        />
+      )}
+    </>
+  );
+};
+
+export default App;
