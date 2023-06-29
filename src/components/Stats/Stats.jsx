@@ -13,7 +13,7 @@ const Stats = ({ params, total, percentage }) => {
     </div>
   );
 };
-
+//
 // Stats.propTypes = {
 //   params: PropTypes.arrayOf(PropTypes.string),
 // };
