@@ -10,8 +10,8 @@ const App = () => {
   });
 
   const increase = option => {
-    setCount(() => {
-      return { ...state, [option]: state[option] + 1 };
+    setCount(prevState => {
+      return { ...prevState, [option]: state[option] + 1 };
     });
   };
 
